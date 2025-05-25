@@ -2,25 +2,26 @@
 pragma solidity ^0.8.0;
 
 contract ReentrancySolved {
+    // Variables
     mapping(address => uint256) public balances;
 
-    // Depositar ETH en el contrato
+    //Función de deposito
     function deposit() public payable {
         balances[msg.sender] += msg.value;
     }
 
-    // Retirar ETH 
+    // Funcion de retirada
     function withdraw() public {
-        require(balances[msg.sender] > 0, "No funds to withdraw");
-
+        //Comprobar fondos
+        require(balances[msg.sender] > 0, "Not enough balance!");
         uint256 amount = balances[msg.sender];
 
-        // Primero se actualiza el balance
+        // Actualizar Créditos
         balances[msg.sender] = 0;
 
-        // Ahora se envia el ETH
+        // Enviar Créditos
         (bool success, ) = msg.sender.call{value: amount}("");
-        require(success, "Failed to send ETH");
+        require(success, "Failed to send Credit");
     }
 
     // Ver saldo del usuario

