@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract LogicalError {
+contract LogicalErrorSolved {
     // Variables
     mapping(address => uint256) public balances;
     mapping(address => uint256) public depositTimestamps;

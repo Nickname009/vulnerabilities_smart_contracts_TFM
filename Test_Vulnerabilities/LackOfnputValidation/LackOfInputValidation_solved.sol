@@ -9,7 +9,6 @@ contract BadValidationSolved {
     constructor() {
         balances[msg.sender] = 1000;
     }
-	
     //Función de transferencia
     function transfer(address _to, uint256 _amount) public {
         // Validar si _to es una dirección nula

@@ -10,7 +10,6 @@ contract BadValidation {
         balances[msg.sender] = 1000;
     }
 
-    //Función de transferencia
     function transfer(address _to, uint256 _amount) public {
         // Falta validar si _to es una dirección nula
         // Falta validar si _to es la misma dirección del emisor

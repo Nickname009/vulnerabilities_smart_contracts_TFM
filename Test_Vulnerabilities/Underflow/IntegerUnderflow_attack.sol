@@ -9,7 +9,7 @@ contract UnderflowAttack {
     // Variables    
     ITokenUnderflow public target;
 
-    // Constructor
+    // Constructor    
     constructor(address _target) {
         target = ITokenUnderflow(_target);
     }
